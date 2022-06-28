@@ -1,4 +1,4 @@
-# 你，識字嗎？ api server 架構分享
+# 【看見你的聲音 - 語音辨識後修正】 api server 架構分享
 
 ## 設計理念
 
@@ -11,7 +11,7 @@
 - 快速 load model 
 
 ## 2. 計算所需資源
-因考量本次比賽真正會用到的天數僅有8天，決定使用開一台VM，將model, log都放在local端，比賽結束後取出即可。
+因考量本次比賽真正會用到的天數僅有10天，決定使用開一台VM，將model, log都放在local端，比賽結束後取出即可。
 
 **機器規格**  
 |          key           |         value                         |
@@ -27,7 +27,7 @@
 
 **元件簡介** 
 1. Flask: api server，每秒可以接收10個request，將主辦單位發來的request做資料前處理
-2. Preprocess: 將base64 string轉成image array
+2. Preprocess: 將 request 中的兩個 list 進行處理
 3. Model Inference: 使用cnn做圖片辨識，0.5秒可辨識完，再依回傳規格給主辦單位Server
 4. Postprocess: 因應api spec要求，檢查輸出資料格式並加上key值
 
