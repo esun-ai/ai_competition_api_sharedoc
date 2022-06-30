@@ -1,17 +1,17 @@
-# 你，識字嗎？ api server 架構分享
+# 【看見你的聲音 - 語音辨識後修正】 api server 架構分享
 
 ## 設計理念
 
 越基本越快上手，Flask 是個能夠快速上手且能夠快速在任何有 python 環境的機器上快速執行 web service 的套件。
-我們直接透過範例程式啟 flask 來當作 web service，再接上基本影像前處理讓我們的 model 能夠快速的辨識出是哪一個字，並且快速回傳給 client 端。
+我們直接透過範例程式啟 flask 來當作 web service，再接上基本資料前處理讓我們的 model 能夠快速的產生出可能的語句，並且快速回傳給 client 端。
 
 ## 1. 系統設計假設
 - 至少要能同時處理 10 個 api requests(換句話說，可能同時被10個人扁，痛覺同時被大腦接收)
-- 在 1 秒鐘內完成圖片 inference
+- 在 1 秒鐘內完成文字修正 inference
 - 快速 load model 
 
 ## 2. 計算所需資源
-因考量本次比賽真正會用到的天數僅有8天，決定使用開一台VM，將model, log都放在local端，比賽結束後取出即可。
+因考量本次比賽真正會用到的天數僅有10天，決定使用開一台VM，將model, log都放在local端，比賽結束後取出即可。
 
 **機器規格**  
 |          key           |         value                         |
@@ -27,8 +27,8 @@
 
 **元件簡介** 
 1. Flask: api server，每秒可以接收10個request，將主辦單位發來的request做資料前處理
-2. Preprocess: 將base64 string轉成image array
-3. Model Inference: 使用cnn做圖片辨識，0.5秒可辨識完，再依回傳規格給主辦單位Server
+2. Preprocess: 將 request 中的兩個 list 進行處理
+3. Model Inference: 將預先處理好的 data 送進 model 中進行運算，再依回傳規格給主辦單位 Server
 4. Postprocess: 因應api spec要求，檢查輸出資料格式並加上key值
 
 ## 3. 額外補充
