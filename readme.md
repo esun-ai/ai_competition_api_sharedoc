@@ -7,11 +7,11 @@
 
 ## 文件內容
 - api-spec 
-    api 開發文件範例
+    api 開發文件範例：參加【最佳API服務獎】者請參考此份範本文件
     - api.py
     - assets
     - readme.md
     - requirements.txt
 - model-spec
-    model 文件說明範例
+    model 文件說明範例：獲獎隊伍請參考此份範本文
     - README.md
